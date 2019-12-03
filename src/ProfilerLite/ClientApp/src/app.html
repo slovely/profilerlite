@@ -1,0 +1,98 @@
+<template>
+    <h1>Profiler Lite</h1>
+
+    <require from="./app.css"></require>
+    <require from="./valueconverters/date-format"></require>
+
+    <div class="sessions overflow-auto">
+        <h3 style="float: left">Object Contexts</h3>
+        <div style="float: right"><button click.trigger="loadSessions()">Refresh</button></div>
+        
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th class="date-col">CreatedDate</th>
+                <th>Url</th>
+                <th class="narrow-col">n</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr repeat.for="session of sessions" click.trigger="selectSession(session.id)" class.bind="selectedSession.id === session.id ? 'active' : ''">
+                <td>${session.id}</td>
+                <td>${session.createdDate | dateFormat:'MM-DD HH:mm:ss'}</td>
+                <td><div class="clipped-text" title="${session.url}">${session.method} ${session.shortenedUrl}</div></td>
+                <td>${session.queryCount}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div if.bind="selectedSession" class="selected-session overflow-auto">
+        <h3 style="float: left">Selected Session: ${selectedSession.id}</h3>
+        <div style="float: right"><button href="#" click.trigger="selectSession(selectedSession.id)">Refresh</button></div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Command Text</th>
+                <th class="narrow-col">Rows</th>
+                <th class="narrow-col">Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr repeat.for="query of selectedSession.databaseQueries" click.trigger="selectQuery(query)" class.bind="selectedQuery.id === query.id ? 'active' : ''">
+                <td>${query.id}</td>
+                <td><div class="clipped-text">${query.commandText}</div></td>
+                <td>${query.rows}</td>
+                <td>${query.timeFormatted}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div if.bind="selectedQuery" class="selected-query clearfix">
+        <h3>Selected Query: ${selectedQuery.id}</h3>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a href="#sql" id="sql-tab" class="nav-link active" data-toggle="tab" role="tab" aria-controls="sql" aria-selected="true">SQL</a>
+            </li>
+            <li class="nav-item">
+                <a href="#sqlparams" id="sql-param-tab" class="nav-link"  data-toggle="tab" role="tab" aria-controls="sqlparams">SQL - params subsituted</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="sql" role="tabpanel" class="tab-pane active">
+                <div class="command-text">
+                    <h5>Command Text</h5>
+                    <textarea value="${selectedQuery.commandText}"></textarea>
+                </div>
+
+                <div class="parameters">
+                    <h5>Parameters (${selectedQuery.parametersDeserialized.length})</h5>
+                    <p repeat.for="p of selectedQuery.parametersDeserialized">
+                        ${p.name} - ${p.value}
+                    </p>
+                </div>
+            </div>
+
+            <div id="sqlparams" role="tabpanel" class="tab-pane">
+                <div class="command-text">
+                    <h5>Command Text</h5>
+                    <textarea value="${selectedQuery.commandTextParameterized}"></textarea>
+                </div>
+
+                <div class="parameters">
+                    <h5>Parameters (${selectedQuery.parametersDeserialized.length})</h5>
+                    <p repeat.for="p of selectedQuery.parametersDeserialized">
+                        ${p.name} - ${p.value}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+</template>

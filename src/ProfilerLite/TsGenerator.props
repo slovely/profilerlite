@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <!-- Specify the path to output the generated TypeScript (relative to the current project directory) -->
+        <TsGenOutputFolder>..\ProfilerLite\ClientApp\src\server</TsGenOutputFolder>
+        <!-- true/false - indicates whether WebApi action methods should be generated -->
+        <TsGenWebApiMethods>true</TsGenWebApiMethods>
+        <TsGenServiceStackRequests>false</TsGenServiceStackRequests>
+        <!-- true/false - allows debugging of the generation -->
+        <TsGenDebug>false</TsGenDebug>
+        <!-- Set to true to use your own service caller -->
+        <TsGenSuppressDefaultServiceCaller>true</TsGenSuppressDefaultServiceCaller>
+        <TsGenApiMethodStyle>Aurelia</TsGenApiMethodStyle>
+        <TsGenAsModules>true</TsGenAsModules>
+        <TsGenCamelCaseNames>true</TsGenCamelCaseNames>
+        <TsGenStringEnums>false</TsGenStringEnums>
+    </PropertyGroup>
+
+    <!-- Specify paths to the DLL(s) containing your models, controllers, and/or SignalR hubs (relative to the current project directory) -->
+    <ItemGroup>
+        <!-- Build server outputs with a sub "x64 or x86" folder - not sure why, but pick up the right one based on whichever exists -->
+        <TsGenInputAssembly Include="..\ProfilerLite.Core\bin\$(Configuration)\netcoreapp3.0\ProfilerLite.Core.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Add namespaces here to also include them in the generation - useful if they are used from MVC or (shudder) WebForms requests which the generator can't determine itself -->
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,79 @@
+html,body {
+    height:100%;
+    margin: 0;
+    font-size: smaller;
+}
+
+div.sessions {
+    height: 40%;
+    width: 35%;
+    float: left;
+}
+
+div.selected-session {
+    width: 60%;
+    height: 40%;
+    padding-left: 3px;
+    float: left;
+}
+
+div.clipped-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+table th {
+    width: 80px;
+}
+
+table th+th {
+    width: auto;
+}
+
+table th.narrow-col {
+    width: 50px;
+}
+
+table th.date-col {
+    width: 95px;
+}
+
+table tr.active {
+    background-color: #d6b975 !important;
+}
+
+div.selected-query {
+    clear: both;
+    height: 50%;
+}
+
+div.tab-content {
+    height: 100%;
+}
+
+div.tab-content div.tab-pane{
+    height: 95%;
+}
+
+div.selected-query div.command-text {
+    width: 70%;
+    height: 100%;
+    float: left;
+} 
+
+div.selected-query div.command-text textarea {
+    width: 100%;
+    height: 100%;
+}
+
+div.selected-query div.parameters {
+    float:left;
+    width: 27%;
+    height: 100%;
+}
