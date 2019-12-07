@@ -17,9 +17,9 @@ namespace ProfilerLite.Core.Controllers
 
         [HttpGet]
         [Route("api/[controller]/sessions")]
-        public async Task<List<DatabaseSessionSummary>> Sessions()
+        public async Task<List<DatabaseSessionSummary>> Sessions([FromQuery] string urlFilter = "")
         {
-            return await _dataProvider.GetSessionsAsync();
+            return await _dataProvider.GetSessionsAsync(urlFilter);
         }
 
         [HttpGet]

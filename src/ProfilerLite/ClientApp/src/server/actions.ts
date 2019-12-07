@@ -23,13 +23,13 @@ import {HttpClient, json, RequestInit} from "aurelia-fetch-client";
         .then((response: Response) => (response && response.status!==204) ? response.json() : null);
     }
 
-    public sessions(ajaxOptions: RequestInit|undefined = undefined): PromiseLike<Array<ProfilerLite.Core.Models.DatabaseSessionSummary>> {
+    public sessions(urlFilter: string, ajaxOptions: RequestInit|undefined = undefined): PromiseLike<Array<ProfilerLite.Core.Models.DatabaseSessionSummary>> {
       const options: RequestInit = { 
         method: "get", 
         body: null ? json(null) : undefined
       };
       if (ajaxOptions) Object.assign(options, ajaxOptions);
-      return this.http.fetch("api/Data/sessions", options)
+      return this.http.fetch("api/Data/sessions" + "?urlFilter=" + urlFilter + "", options)
         .then((response: Response) => (response && response.status!==204) ? response.json() : null);
     }
 

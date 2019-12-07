@@ -9,6 +9,7 @@ export class App {
     public sessions: Array<ProfilerLite.Core.Models.DatabaseSessionSummary> = [];
     public selectedSession: ProfilerLite.Core.Models.DatabaseSessionDetail = null;
     public selectedQuery: ProfilerLite.Core.Models.DatabaseQuery = null;
+    public urlFilter: string = "";
 
     constructor(private fetchClient: HttpClient, private dataCtrl: Actions.Data){
     }
@@ -18,7 +19,7 @@ export class App {
     }
 
     private async loadSessions() {
-        const sessions2 = await this.dataCtrl.sessions();
+        const sessions2 = await this.dataCtrl.sessions(this.urlFilter);
         console.log(sessions2.length);
         this.sessions = sessions2;
     }

@@ -17,19 +17,23 @@ namespace ProfilerLite.Core
             _config = config;
         }
 
-        public async Task<List<DatabaseSessionSummary>> GetSessionsAsync()
+        public async Task<List<DatabaseSessionSummary>> GetSessionsAsync(string urlFilter)
         {
             var sql = @"
 select top 20 s.*, count(sq.id) QueryCount
 from __Session s
-    join __SessionQuery sq on sq.SessionId = s.SessionId
-group by s.Id, s.SessionId, s.Url, s.Method, s.CreatedDate
+    join __SessionQuery sq on sq.SessionId = s.SessionId";
+            if (!string.IsNullOrWhiteSpace(urlFilter))
+            {
+                sql += " where s.url like @urlFilter";
+            }
+            sql += @" group by s.Id, s.SessionId, s.Url, s.Method, s.CreatedDate
 order by CreatedDate desc
 ";
 
             using var conn = new SqlConnection(_config.Value.ConnectionStrings.SqlLogDb);
             await conn.OpenAsync();
-            return (await conn.QueryAsync<DatabaseSessionSummary>(sql)).ToList();
+            return (await conn.QueryAsync<DatabaseSessionSummary>(sql, new {urlFilter = "%" + urlFilter + "%"})).ToList();
         }
 
         public async Task<DatabaseSessionDetail> GetSessionDetail(int sessionId)
