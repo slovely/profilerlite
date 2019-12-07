@@ -72,6 +72,11 @@ div.selected-query div.command-text textarea {
     height: 100%;
 }
 
+div.scroll-area {
+    clear: both;
+    height: 90%;
+}
+
 div.selected-query div.parameters {
     float:left;
     width: 27%;

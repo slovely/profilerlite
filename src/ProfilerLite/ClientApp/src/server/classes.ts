@@ -14,6 +14,8 @@ export module ProfilerLite.Core.Models {
 	}
 	export interface DatabaseSessionDetail extends ProfilerLite.Core.Models.DatabaseSessionSummary {
 		databaseQueries: ProfilerLite.Core.Models.DatabaseQuery[];
+		totalDatabaseTimeFormatted: string;
+		totalRowCount: number;
 	}
 	export interface DatabaseSessionSummary {
 		createdDate: Date;

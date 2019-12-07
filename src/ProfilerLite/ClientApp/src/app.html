@@ -4,52 +4,58 @@
     <require from="./app.css"></require>
     <require from="./valueconverters/date-format"></require>
 
-    <div class="sessions overflow-auto">
+    <div class="sessions">
         <h3 style="float: left">Object Contexts</h3>
         <div style="float: right"><button click.trigger="loadSessions()">Refresh</button></div>
-        
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th class="date-col">CreatedDate</th>
-                <th>Url</th>
-                <th class="narrow-col">n</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr repeat.for="session of sessions" click.trigger="selectSession(session.id)" class.bind="selectedSession.id === session.id ? 'active' : ''">
-                <td>${session.id}</td>
-                <td>${session.createdDate | dateFormat:'MM-DD HH:mm:ss'}</td>
-                <td><div class="clipped-text" title="${session.url}">${session.method} ${session.shortenedUrl}</div></td>
-                <td>${session.queryCount}</td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="overflow-auto scroll-area">
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="date-col">CreatedDate</th>
+                    <th>Url</th>
+                    <th class="narrow-col">n</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="session of sessions" click.trigger="selectSession(session.id)" class.bind="selectedSession.id === session.id ? 'active' : ''">
+                    <td>${session.id}</td>
+                    <td>${session.createdDate | dateFormat:'MM-DD HH:mm:ss'}</td>
+                    <td>
+                        <div class="clipped-text" title="${session.url}">${session.method} ${session.shortenedUrl}</div>
+                    </td>
+                    <td>${session.queryCount}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div if.bind="selectedSession" class="selected-session overflow-auto">
-        <h3 style="float: left">Selected Session: ${selectedSession.id}</h3>
+    <div if.bind="selectedSession" class="selected-session">
+        <h3 style="float: left">Session ID: ${selectedSession.id} <small>Total rows: ${selectedSession.totalRowCount} Total time: ${selectedSession.totalDatabaseTimeFormatted}</small></h3>
         <div style="float: right"><button href="#" click.trigger="selectSession(selectedSession.id)">Refresh</button></div>
 
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Command Text</th>
-                <th class="narrow-col">Rows</th>
-                <th class="narrow-col">Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr repeat.for="query of selectedSession.databaseQueries" click.trigger="selectQuery(query)" class.bind="selectedQuery.id === query.id ? 'active' : ''">
-                <td>${query.id}</td>
-                <td><div class="clipped-text">${query.commandText}</div></td>
-                <td>${query.rows}</td>
-                <td>${query.timeFormatted}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="overflow-auto scroll-area">
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Command Text</th>
+                    <th class="narrow-col">Rows</th>
+                    <th class="narrow-col">Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="query of selectedSession.databaseQueries" click.trigger="selectQuery(query)" class.bind="selectedQuery.id === query.id ? 'active' : ''">
+                    <td>${query.id}</td>
+                    <td><div class="clipped-text">${query.commandText}</div></td>
+                    <td>${query.rows}</td>
+                    <td>${query.timeFormatted}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div if.bind="selectedQuery" class="selected-query clearfix">
