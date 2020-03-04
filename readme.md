@@ -7,10 +7,10 @@ This is a simple website for displaying details of sql calls that are logged to 
 The website expects a database to be pre configured.  The SQL to create it is:
 
 ```
-CREATE DATABASE SqlLog;
+CREATE DATABASE SqlDbLog;
 GO
 
-USE SqlLog;
+USE SqlDbLog;
 
 CREATE TABLE [dbo].[__Session](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
