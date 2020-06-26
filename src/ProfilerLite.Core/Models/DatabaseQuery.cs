@@ -35,6 +35,7 @@ namespace ProfilerLite.Core.Models
         private string FormatParam(string paramValue)
         {
             if (int.TryParse(paramValue, out _)) return paramValue;
+            if (bool.TryParse(paramValue, out var b)) return b ? "1" : "0"; 
             return "'" + paramValue + "'";
         }
     }
