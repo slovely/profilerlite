@@ -1,9 +1,11 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using ProfilerLite.AureliaNpmSupport;
 using ProfilerLite.Core;
 using ProfilerLite.Core.Controllers;
@@ -23,15 +25,16 @@ namespace ProfilerLite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddApplicationPart(typeof(WeatherForecastController).Assembly);
-            // In production, the Angular files will be served from this directory
+            // In production, the Aurelia files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddTransient<DataProvider>();
             services.Configure<Configuration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<Configuration> config)
         {
+            Console.WriteLine("Connection: " + config.Value.ConnectionStrings.SqlLogDb);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

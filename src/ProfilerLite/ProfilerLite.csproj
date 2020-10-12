@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
-        <PackageReference Include="TypeScriptDefinitionsGenerator" Version="1.0.131" />
+        <PackageReference Include="TypeScriptDefinitionsGenerator" Version="1.0.144" />
     </ItemGroup>
 
     <ItemGroup>

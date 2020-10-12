@@ -29,7 +29,7 @@ namespace ProfilerLite.AureliaNpmSupport
             {
                 TimeSpan startupTimeout = spaBuilder.Options.StartupTimeout;
                 return targetUriTask.WithTimeout<Uri>(startupTimeout,
-                    "The Angular CLI process did not start listening for requests " + string.Format("within the timeout period of {0} seconds. ", (object) startupTimeout.Seconds) +
+                    "The Aurelia CLI process did not start listening for requests " + string.Format("within the timeout period of {0} seconds. ", (object) startupTimeout.Seconds) +
                     "Check the log output for error information.");
             }));
         }
@@ -40,7 +40,7 @@ namespace ProfilerLite.AureliaNpmSupport
             ILogger logger)
         {
             int availablePort = TcpPortFinder.FindAvailablePort();
-            //logger.LogInformation(string.Format("Starting @angular/cli on port {0}...", (object) availablePort));
+            //logger.LogInformation(string.Format("Starting @aurelia cli on port {0}...", (object) availablePort));
             NpmScriptRunner npmScriptRunner =
                 new NpmScriptRunner(sourcePath, npmScriptName, string.Format("--port {0}", (object) availablePort), (IDictionary<string, string>) null);
             Match match;
@@ -53,7 +53,7 @@ namespace ProfilerLite.AureliaNpmSupport
                 catch (EndOfStreamException ex)
                 {
                     throw new InvalidOperationException(
-                        "The NPM script '" + npmScriptName + "' exited without indicating that the Angular CLI was listening for requests. The error output was: " +
+                        "The NPM script '" + npmScriptName + "' exited without indicating that the Aurelia CLI was listening for requests. The error output was: " +
                         stdErrReader.ReadAsString(), (Exception) ex);
                 }
             }

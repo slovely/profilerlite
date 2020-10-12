@@ -1,4 +1,5 @@
-import Classes = require("./classes");
+import * as Classes from "./classes";
+import * as Enums from "./enums";
 import ProfilerLite = Classes.ProfilerLite;
 
 import {autoinject} from "aurelia-dependency-injection";
@@ -38,7 +39,7 @@ import {HttpClient, json, RequestInit} from "aurelia-fetch-client";
   export class WeatherForecast {
     constructor(private http: HttpClient) {
     }
-    public get(a: ProfilerLite.Core.Models.DummyEnumToFixTypeScriptGenerationBug, ajaxOptions: RequestInit|undefined = undefined): PromiseLike<Array<ProfilerLite.Core.Models.WeatherForecast>> {
+    public get(a: Enums.ProfilerLite.Core.Models.DummyEnumToFixTypeScriptGenerationBug, ajaxOptions: RequestInit|undefined = undefined): PromiseLike<Array<ProfilerLite.Core.Models.WeatherForecast>> {
       const options: RequestInit = { 
         method: "get", 
         body: null ? json(null) : undefined
