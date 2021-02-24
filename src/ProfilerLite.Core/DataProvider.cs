@@ -55,5 +55,13 @@ order by sq.id;
             result.DatabaseQueries = (await multi.ReadAsync<DatabaseQuery>()).ToList();
             return result;
         }
+
+        public async Task TruncateTables()
+        {
+            using var conn = new SqlConnection(_config.Value.ConnectionStrings.SqlLogDb);
+            await conn.OpenAsync();
+            await conn.ExecuteAsync("truncate table __sessionquery;");
+            await conn.ExecuteAsync("truncate table __session;");
+        }
     }
 }

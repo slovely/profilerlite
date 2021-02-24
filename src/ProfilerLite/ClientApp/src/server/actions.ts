@@ -14,6 +14,16 @@ import {HttpClient, json, RequestInit} from "aurelia-fetch-client";
   export class Data {
     constructor(private http: HttpClient) {
     }
+    public clearDatabase(ajaxOptions: RequestInit|undefined = undefined): PromiseLike<boolean> {
+      const options: RequestInit = { 
+        method: "post", 
+        body: null ? json(null) : undefined
+      };
+      if (ajaxOptions) Object.assign(options, ajaxOptions);
+      return this.http.fetch("api/Data/clearDatabase", options)
+        .then((response: Response) => (response && response.status!==204) ? response.json() : null);
+    }
+
     public sessionDetail(id: number, ajaxOptions: RequestInit|undefined = undefined): PromiseLike<ProfilerLite.Core.Models.DatabaseSessionDetail> {
       const options: RequestInit = { 
         method: "get", 

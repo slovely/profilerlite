@@ -31,4 +31,8 @@ export class App {
     public async selectQuery(query: ProfilerLite.Core.Models.DatabaseQuery) {
         this.selectedQuery = query;
     }
+    
+    public async clearDatabase() {
+        this.dataCtrl.clearDatabase();
+    }
 }

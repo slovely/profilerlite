@@ -28,5 +28,13 @@ namespace ProfilerLite.Core.Controllers
         {
             return await _dataProvider.GetSessionDetail(id);
         }
+        
+        [HttpPost]
+        [Route("api/[controller]/cleardatabase")]
+        public async Task<bool> ClearDatabase()
+        {
+            await _dataProvider.TruncateTables();
+            return true;
+        }
     }
 }

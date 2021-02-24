@@ -1,5 +1,6 @@
 import * as __Enums from "./enums";
 
+import {Moment} from "moment";
 
 export module ProfilerLite.Core.Models {
 	export interface DatabaseQuery {
