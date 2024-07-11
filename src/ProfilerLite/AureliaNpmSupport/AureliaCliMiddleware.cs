@@ -41,8 +41,10 @@ namespace ProfilerLite.AureliaNpmSupport
         {
             int availablePort = TcpPortFinder.FindAvailablePort();
             //logger.LogInformation(string.Format("Starting @aurelia cli on port {0}...", (object) availablePort));
+            var envVars = new Dictionary<string, string>();
+            envVars["NODE_OPTIONS"] = "--openssl-legacy-provider";
             NpmScriptRunner npmScriptRunner =
-                new NpmScriptRunner(sourcePath, npmScriptName, string.Format("--port {0}", (object) availablePort), (IDictionary<string, string>) null);
+                new NpmScriptRunner(sourcePath, npmScriptName, string.Format("--port {0}", (object)availablePort), envVars);
             Match match;
             using (EventedStreamStringReader stdErrReader = new EventedStreamStringReader(npmScriptRunner.StdErr))
             {

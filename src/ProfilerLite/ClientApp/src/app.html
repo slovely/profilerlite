@@ -41,7 +41,11 @@
 
     <div if.bind="selectedSession" class="selected-session">
         <h3 style="float: left">Session ID: ${selectedSession.id} <small>Total rows: ${selectedSession.totalRowCount} Total time: ${selectedSession.totalDatabaseTimeFormatted}</small></h3>
-        <div style="float: right"><button href="#" click.trigger="selectSession(selectedSession.id)">Refresh</button></div>
+        
+        <div style="float: right">
+            <a style="padding-right: 8px;" href=""  click.trigger="downloadAll()">Download all queries</a>
+            <button href="#" click.trigger="selectSession(selectedSession.id)">Refresh</button>
+        </div>
 
         <div class="overflow-auto scroll-area">
             <table class="table table-bordered table-striped table-condensed">

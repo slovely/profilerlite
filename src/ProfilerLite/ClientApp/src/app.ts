@@ -35,4 +35,9 @@ export class App {
     public async clearDatabase() {
         this.dataCtrl.clearDatabase();
     }
+    
+    public async downloadAll() {
+        //this.dataCtrl.downloadAllQueries(this.selectedSession.id);
+        window.location.href = "/api/data/downloadallqueries/" + this.selectedSession.id;
+    }
 }
